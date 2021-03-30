@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Intervention databases</title>
+	<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<main>
+		<div class="form-selects">
+			<div class="selects">
+				<label for="geographic_area">Geographic Area</label>
+				<select name="geographic_area">
+					<option selected>all</option>
+					<option>Northeast</option>
+					<option>West</option>
+					<option>South</option>
+					<option>Midwest</option>
+				</select>
+			</div>
+			<div class="selects">
+				<label for="modality">Modality</label>
+				<select name="modality">
+					<option selected>all</option>
+					<option>Education</option>
+					<option>Incentives</option>
+					<option>Reminder</option>
+					<option>Social Media</option>
+				</select>
+			</div>
+			<div class="selects">
+				<label for="outcome">Outcome</label>
+				<select name="outcome">
+					<option selected>all</option>
+					<option>Behavioral</option>
+					<option>Immunization Rate</option>
+					<option>Health Tests Rate</option>
+					<option>Effectiveness</option>
+				</select>
+			</div>
+			<div class="selects">
+				<label for="populations">Populations</label>
+				<select name="populations">
+					<option selected>all</option>
+					<option>Early childhood</option>
+					<option>Childhood</option>
+					<option>Adolescent</option>
+					<option>Young adult</option>
+					<option>Adult</option>
+					<option>Prenatal women</option>
+				</select>
+			</div>
+			<div class="selects">
+				<label for="systematic_review">Systematic Review</label>
+				<select name="systematic_review">
+					<option selected>all</option>
+					<option>Ou</option>
+					<option>Falcone</option>
+					<option>Niccolai</option>
+					<option>Jarrett</option>
+					<option>Nour</option>
+					<option>Smulian</option>
+				</select>
+			</div>
+			<div class="selects">
+				<label for="target">Disease Target</label>
+				<select name="target">
+					<option selected>all</option>
+					<option>Childhood vaccine</option>
+					<option>Early childhood vaccine</option>
+					<option>HPV</option>
+					<option>Influenza</option>
+					<option>Meningococcal</option>
+					<option>Other adolescent vaccine</option>
+					<option>Pneumococcal</option>
+					<option>Dtap</option>
+					<option>Varicella</option>
+				</select>
+			</div>
+			<div class="selects">
+				<label for="urbanicity">Urbanicity</label>
+				<select name="urbanicity">
+					<option selected>all</option>
+					<option>Urban</option>
+					<option>Rural</option>
+					<option>Researvation</option>
+				</select>
+			</div>
+		</div>
+		<button class="submit" id="submit">Search</button>
+		<div class="result-container hidden" id="result">
+			<table>
+				<tr>
+					<th>First Author</th>
+					<th>Publish Year</th>
+					<th>From Systematic Review</th>
+					<th>Title</th>
+					<th>doi</th>
+				</tr>
+				<tr class="darken">
+					<td>Ahlers-Schmidt</td>
+					<td>2012</td>
+					<td>Odone</td>
+					<td>Feasibility of a randomized controlled trial to evaluate Text Reminders for Immunization Compliance in Kids (TRICKs)</td>
+					<td>10.1016/j.vaccine.2012.06.058</td>
+				</tr>
+				<tr>
+					<td>Coyle</td>
+					<td>2004</td>
+					<td>Odone</td>
+					<td>Improving the rates of inpatient pneumococcal vaccination: Impact of standing orders versus computerized reminders to physicians </td>
+					<td>10.1086/502317</td>
+				</tr>
+				<tr class="darken">
+					<td>Dexheimer</td>
+					<td>2011</td>
+					<td>Odone</td>
+					<td>A computerized pneumococcal vaccination reminder system in the adult emergency department </td>
+					<td>10.1016/j.vaccine.2011.07.032</td>
+				</tr>
+			</table>
+		</div>
+	</main>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-wasm.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</html>
