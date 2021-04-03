@@ -9,33 +9,53 @@
 	<main>
 		<div class="form-selects">
 			<div class="selects">
-				<label for="geographic_area">Geographic Area</label>
-				<select name="geographic_area">
+				<label for="area">Geographic Area</label>
+				<select name="area">
 					<option selected>all</option>
 					<option>Northeast</option>
 					<option>West</option>
 					<option>South</option>
 					<option>Midwest</option>
+					<option>Sample from across all states</option>
 				</select>
 			</div>
 			<div class="selects">
 				<label for="modality">Modality</label>
 				<select name="modality">
 					<option selected>all</option>
+					<option>Contest</option>
 					<option>Education</option>
+					<option>FGI with providers</option>
 					<option>Incentives</option>
+					<option>Interactive computer program</option>
+					<option>Photos</option>
+					<option>Policy</option>
+					<option>Radio</option>
 					<option>Reminder</option>
 					<option>Social Media</option>
+					<option>Vaccine clinic</option>
+					<option>Vaccine websites</option>
+					<option>Video</option>
+					<option>Visit(outreach)</option>
+					<option>Webinar</option>
 				</select>
 			</div>
 			<div class="selects">
 				<label for="outcome">Outcome</label>
 				<select name="outcome">
 					<option selected>all</option>
+					<option>Acceptability</option>
+					<option>Barrier</option>
 					<option>Behavioral</option>
-					<option>Immunization Rate</option>
-					<option>Health Tests Rate</option>
+					<option>Care Visit</option>
+					<option>Cost Efficiency</option>
 					<option>Effectiveness</option>
+					<option>Feasibility</option>
+					<option>Health Status</option>
+					<option>Health Tests Rate</option>
+					<option>Identify Under-immunized Children</option>
+					<option>Immunization Rate</option>
+					<option>Knowledge</option>
 				</select>
 			</div>
 			<div class="selects">
@@ -51,8 +71,8 @@
 				</select>
 			</div>
 			<div class="selects">
-				<label for="systematic_review">Systematic Review</label>
-				<select name="systematic_review">
+				<label for="sysrev">Systematic Review</label>
+				<select name="sysrev">
 					<option selected>all</option>
 					<option>Ou</option>
 					<option>Falcone</option>
@@ -60,6 +80,12 @@
 					<option>Jarrett</option>
 					<option>Nour</option>
 					<option>Smulian</option>
+					<option>Ortiz</option>
+					<option>Odone</option>
+					<option>Crocker-Buque</option>
+					<option>Lott</option>
+					<option>Asare</option>
+					<option>Null</option>
 				</select>
 			</div>
 			<div class="selects">
@@ -89,34 +115,14 @@
 		</div>
 		<button class="submit" id="submit">Search</button>
 		<div class="result-container hidden" id="result">
-			<table>
+			<div class="notification"><span id="result-number">25 essays</span> have been found.</div>
+			<table id="table">
 				<tr>
 					<th>First Author</th>
 					<th>Publish Year</th>
 					<th>From Systematic Review</th>
 					<th>Title</th>
 					<th>doi</th>
-				</tr>
-				<tr class="darken">
-					<td>Ahlers-Schmidt</td>
-					<td>2012</td>
-					<td>Odone</td>
-					<td>Feasibility of a randomized controlled trial to evaluate Text Reminders for Immunization Compliance in Kids (TRICKs)</td>
-					<td>10.1016/j.vaccine.2012.06.058</td>
-				</tr>
-				<tr>
-					<td>Coyle</td>
-					<td>2004</td>
-					<td>Odone</td>
-					<td>Improving the rates of inpatient pneumococcal vaccination: Impact of standing orders versus computerized reminders to physicians </td>
-					<td>10.1086/502317</td>
-				</tr>
-				<tr class="darken">
-					<td>Dexheimer</td>
-					<td>2011</td>
-					<td>Odone</td>
-					<td>A computerized pneumococcal vaccination reminder system in the adult emergency department </td>
-					<td>10.1016/j.vaccine.2011.07.032</td>
 				</tr>
 			</table>
 		</div>
