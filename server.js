@@ -8,10 +8,11 @@ const port = process.env.PORT || 8080
 app.use(express.static('static'))
 
 app.get('/', function (request, response) {
-  fs.readFile('./index.html', 'utf-8', function (err, data) {
+  fs.readFile('/index.html', 'utf-8', function (err, data) {
     if (err) {
       throw err
     }
+    console.log('here runing')
     response.status(200).end(data)
   })
 })
