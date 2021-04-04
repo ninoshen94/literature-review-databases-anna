@@ -7,6 +7,7 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 })
+const db = require('sqlite3')
 
 app.use(express.static('static'))
 
