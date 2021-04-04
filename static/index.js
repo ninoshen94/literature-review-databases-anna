@@ -25,7 +25,6 @@ function ajaxGet (url, then) {
           window.location = '/'
           return
         }
-        console.log(response)
         then(response)
       }
     }

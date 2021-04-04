@@ -1,9 +1,12 @@
 const fs = require('fs')
-const sql = require('sqlite3').verbose()
-const db = new sql.Database('lr.db')
+const { Pool } = require('pg')
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 8080
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+})
 
 app.use(express.static('static'))
 
@@ -22,88 +25,95 @@ app.get('/search', async function (request, response) {
   let statement = 'SELECT DISTINCT _main.first_author, _main.publish_year, _systematic_review.first_author AS sys_first_author, _main.title, _main.doi FROM _main\n'
   statement += 'INNER JOIN _systematic_review ON _main.sys_rev_id = _systematic_review.sys_rev_id\n'
   let statementEnd = ''
+  let index = 1
 
   if (request.query.area) {
     statement += 'INNER JOIN _geographic_area_ref ON _geographic_area_ref.study_id = _main.study_id\n'
     statement += 'INNER JOIN _geographic_area ON _geographic_area.area_id = _geographic_area_ref.area_id\n'
     if (statementEnd) {
-      statementEnd += ' AND area_name = ?'
+      statementEnd += ' AND area_name = $' + index
     } else {
-      statementEnd += 'WHERE area_name = ?'
+      statementEnd += 'WHERE area_name = $' + index
     }
     params.push(request.query.area)
+    index++
   }
 
   if (request.query.modality) {
     statement += 'INNER JOIN _modality_ref ON _modality_ref.study_id = _main.study_id\n'
     statement += 'INNER JOIN _modality ON _modality.modality_id = _modality_ref.modality_id\n'
     if (statementEnd) {
-      statementEnd += ' AND modality_name = ?'
+      statementEnd += ' AND modality_name = $' + index
     } else {
-      statementEnd += 'WHERE modality_name = ?'
+      statementEnd += 'WHERE modality_name = $' + index
     }
     params.push(request.query.modality)
+    index++
   }
 
   if (request.query.outcome) {
     statement += 'INNER JOIN _outcome_ref ON _outcome_ref.study_id = _main.study_id\n'
     statement += 'INNER JOIN _outcome ON _outcome.outcome_id = _outcome_ref.outcome_id\n'
     if (statementEnd) {
-      statementEnd += ' AND outcome_name = ?'
+      statementEnd += ' AND outcome_name = $' + index
     } else {
-      statementEnd += 'WHERE outcome_name = ?'
+      statementEnd += 'WHERE outcome_name = $' + index
     }
     params.push(request.query.outcome)
+    index++
   }
 
   if (request.query.populations) {
     statement += 'INNER JOIN _populations_ref ON _populations_ref.study_id = _main.study_id\n'
     statement += 'INNER JOIN _populations ON _populations_ref.pop_id = _populations.pop_id\n'
     if (statementEnd) {
-      statementEnd += ' AND pop_class = ?'
+      statementEnd += ' AND pop_class = $' + index
     } else {
-      statementEnd += 'WHERE pop_class = ?'
+      statementEnd += 'WHERE pop_class = $' + index
     }
     params.push(request.query.populations)
+    index++
   }
 
   if (request.query.sysrev) {
     if (statementEnd) {
-      statementEnd += ' AND _systematic_review.first_author = ?'
+      statementEnd += ' AND _systematic_review.first_author = $' + index
     } else {
-      statementEnd += 'WHERE _systematic_review.first_author = ?'
+      statementEnd += 'WHERE _systematic_review.first_author = $' + index
     }
     params.push(request.query.sysrev)
+    index++
   }
 
   if (request.query.target) {
     statement += 'INNER JOIN _target_ref ON _target_ref.study_id = _main.study_id\n'
     statement += 'INNER JOIN _target ON _target_ref.disease_id = _target.disease_id\n'
     if (statementEnd) {
-      statementEnd += ' AND disease_name = ?'
+      statementEnd += ' AND disease_name = $' + index
     } else {
-      statementEnd += 'WHERE disease_name = ?'
+      statementEnd += 'WHERE disease_name = $' + index
     }
     params.push(request.query.target)
+    index++
   }
 
   if (request.query.urbanicity) {
     statement += 'INNER JOIN _urbanicity_ref ON _urbanicity_ref.study_id = _main.study_id\n'
     statement += 'INNER JOIN _urbanicity ON _urbanicity_ref.urbanicity_id = _urbanicity.urbanicity_id\n'
     if (statementEnd) {
-      statementEnd += ' AND urbanicity_class = ?'
+      statementEnd += ' AND urbanicity_class = $' + index
     } else {
-      statementEnd += 'WHERE urbanicity_class = ?'
+      statementEnd += 'WHERE urbanicity_class = $' + index
     }
     params.push(request.query.urbanicity)
+    index++
   }
 
   statement += statementEnd
-
-  await db.all(statement, params, function (err, rows) {
-    if (err) throw err
-    response.json(rows)
-  })
+  const client = await pool.connect()
+  const result = await client.query(statement, params)
+  response.json(result.rows)
+  client.release()
 })
 
 app.use(function (request, response, next) {

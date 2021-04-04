@@ -6,7 +6,7 @@
   "scripts": {
     "sass:watch": "node-sass source/ --watch --output=public/css/ --output-style=compressed --source-map=true",
     "sass:transfer": "node-sass origin/ --output=compiled/ --output-style=compressed --source-map=true",
-    "server": "nodemon server.js"
+    "server": "cross-env DATABASE_URL='postgres://czukydntdfwpdx:0f88d3118f5fa15c0d7ca85ffd0b68b052baef8deaed0d3fc818a30a1476fe2b@ec2-3-211-37-117.compute-1.amazonaws.com:5432/d3q7o90tnur2qf' nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
     "sqlite3": "^5.0.2"
   }
 }
