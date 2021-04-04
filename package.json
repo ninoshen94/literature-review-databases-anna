@@ -18,13 +18,14 @@
     "url": "https://github.com/ninoshen94/literature-review-databases-anna/issues"
   },
   "homepage": "https://github.com/ninoshen94/literature-review-databases-anna#readme",
-  "dependencies": {},
+  "dependencies": {
+    "pg": "^8.5.1",
+    "express": "^4.17.1",
+    "sqlite3": "^5.0.2"
+  },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "express": "^4.17.1",
     "fs": "0.0.1-security",
-    "nodemon": "^2.0.7",
-    "pg": "^8.5.1",
-    "sqlite3": "^5.0.2"
+    "nodemon": "^2.0.7"
   }
 }
