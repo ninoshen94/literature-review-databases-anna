@@ -23,7 +23,7 @@ app.get('/', function (request, response) {
 
 app.get('/search', async function (request, response) {
   const params = []
-  let statement = 'SELECT DISTINCT _main.first_author, _main.publish_year, _systematic_review.first_author AS sys_first_author, _main.title, _main.doi FROM _main\n'
+  let statement = 'SELECT DISTINCT _main.first_author, _main.publish_year, _systematic_review.first_author AS sys_first_author, _main.title, _main.doi, _systematic_review.publish_year AS sys_publish_year FROM _main\n'
   statement += 'INNER JOIN _systematic_review ON _main.sys_rev_id = _systematic_review.sys_rev_id\n'
   let statementEnd = ''
   let index = 1
@@ -113,6 +113,16 @@ app.get('/search', async function (request, response) {
   statement += statementEnd
   const client = await pool.connect()
   const result = await client.query(statement, params)
+
+  Object.keys(result.rows).forEach(function (row) {
+    if (result.rows[row].sys_publish_year) {
+      result.rows[row].sys_first_author += ' (' + result.rows[row].sys_publish_year + ')'
+    }
+    delete result.rows[row].sys_publish_year
+    if (result.rows[row].sys_first_author === 'Null') {
+      result.rows[row].sys_first_author = '-'
+    }
+  })
   response.json(result.rows)
   client.release()
 })
